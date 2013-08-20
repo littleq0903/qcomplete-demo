@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QComplete Demo</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/jstring.js"></script>
+    
+    <script type="text/javascript" src="js/qcomplete/qcomplete.js"></script>
+    <script type="text/javascript" src="data.json"></script>
+    <link rel="stylesheet" href="js/qcomplete/qcomplete.css" />
+    <script type="text/javascript">
+        $(function(){
+            console.debug(data);
+            var city_data = _.map(data.data, function(city_item){ return city_item.city; });
+            var city_widget = qComplete("#city_completion")
+            city_widget.init_widget(
+                {
+                    'data': city_data,
+                    'widget_selector': '.qcomplete-widget',
+                    'submit_selector': '#city_submit',
+                }
+            );
+
+            city_widget.displayOptions();
+                
+        });
+    
+    </script>
+    <style type="text/css">
+    input#city_completion {
+        color: #777777;
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid #777777;
+        border-radius: 3px;
+    }
+    input#city_submit {
+        padding: 5px;
+        border: 1px solid #777777;
+        border-radius: 3px;
+        color: #777777;
+        height: 27px;
+    }
+    input#city_submit:hover {
+        background-color: #990000;
+    }
+    input#city_submit.available:hover {
+        background-color: #009900;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+<div>
+    <input id="city_completion" type="text" />
+    <ul class="qcomplete-widget"></ul>
+    <input id="city_submit" type="submit" value="Submit"/>
+</div>
+
+    
+</body>
+</html>
