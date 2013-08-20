@@ -22,6 +22,8 @@ qComplete.prototype = {
         _this.$submit.on('click', onPressSubmit);
         _this.$widget.on('click', 'li', onItemSelected);
 
+        _this.$widget.hide();
+
         return _this;
     },
     displayOptions: function() {
@@ -40,6 +42,12 @@ var displayOptions = qComplete.prototype.displayOptions;
 var onKeyUp = function(evt) {
     var text = _this.$textfield.val();
 
+    if (text === "") {
+        _this.$widget.hide();
+    } else {
+        _this.$widget.show();
+    }
+
     new_candidates = getMatched(text, _this.total_data);
     _this.current_data = new_candidates;
 
@@ -50,6 +58,7 @@ var onKeyUp = function(evt) {
 }
 
 var checkAvaibility = function() {
+    var text = _this.$textfield.val();
     var complete = _.find(_this.current_data, function(s){ return s == text; });
 
     if (complete == undefined) {
@@ -71,6 +80,7 @@ var onItemSelected = function(evt) {
     text = $(this).html();
     _this.$textfield.val(text);
     checkAvaibility();
+    _this.$widget.hide();
 }
 
 
