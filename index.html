@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="js/qcomplete/qcomplete.css" />
     <script type="text/javascript">
         $(function(){
-            console.debug(data);
+            // deal with data from the json file
             var city_data = _.map(data.data, function(city_item){ return city_item.city; });
+
+            // set up the widget with qComplete
             var city_widget = qComplete("#city_completion")
             city_widget.init_widget(
                 {
@@ -22,8 +24,6 @@
                     'submit_selector': '#city_submit',
                 }
             );
-
-            city_widget.displayOptions();
                 
         });
     

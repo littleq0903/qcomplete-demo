@@ -9,11 +9,13 @@ var _this = "";
 
 qComplete.prototype = {
     init: function(selector) {
+        // constructor
         _this = this;
         _this.$textfield = $(selector);
         return _this;
     },
     init_widget: function(options) {
+        // initialize specified widget
         _this.total_data = options.data.slice(0);
         _this.current_data = _this.total_data.slice(0);
         _this.$widget = $(options.widget_selector);
@@ -27,6 +29,7 @@ qComplete.prototype = {
         return _this;
     },
     displayOptions: function() {
+        // display current options in widget
         var current_options = _this.current_data;
         _this.$widget.html("");
         _.map(current_options, function(item) {
@@ -37,7 +40,9 @@ qComplete.prototype = {
     }
 };
 
-var displayOptions = qComplete.prototype.displayOptions;
+/*
+ * Events
+ */
 
 var onKeyUp = function(evt) {
     var text = _this.$textfield.val();
@@ -52,20 +57,9 @@ var onKeyUp = function(evt) {
     _this.current_data = new_candidates;
 
 
-    displayOptions();
+    _this.displayOptions();
     checkAvaibility();
 
-}
-
-var checkAvaibility = function() {
-    var text = _this.$textfield.val();
-    var complete = _.find(_this.current_data, function(s){ return s == text; });
-
-    if (complete == undefined) {
-        _this.$submit.removeClass("available");
-    } else {
-        _this.$submit.addClass("available");
-    }
 }
 
 var onPressSubmit = function(evt) {
@@ -83,8 +77,24 @@ var onItemSelected = function(evt) {
     _this.$widget.hide();
 }
 
+/*
+ * Utils
+ */
+
+var checkAvaibility = function() {
+    // check the input field whether matched one of candidates
+    var text = _this.$textfield.val();
+    var complete = _.find(_this.current_data, function(s){ return s == text; });
+
+    if (complete == undefined) {
+        _this.$submit.removeClass("available");
+    } else {
+        _this.$submit.addClass("available");
+    }
+}
 
 var getMatched = function (refer, candidates) {
+    // get matched candidates
     var new_candidates = _.filter(candidates, function(word){
         return word.contains(refer);
     });
@@ -92,9 +102,9 @@ var getMatched = function (refer, candidates) {
     return new_candidates;
 }
 
+
+// made qComplete return instance but not void
 qComplete.prototype.init.prototype = qComplete.prototype;
-
-
 
 
 // declare window.qComplete
