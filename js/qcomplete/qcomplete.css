@@ -1,9 +1,4 @@
 .qcomplete-widget {
-    /* dynamic */
-    position: absolute;
-    left: 10px;
-    top: 50px;
-    /* reserved */
     min-width: 100px;
     max-width: 350px;
     list-style: none;
