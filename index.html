@@ -20,7 +20,7 @@
             city_widget.init_widget(
                 {
                     'data': city_data,
-                    'widget_selector': '.qcomplete-widget',
+                    'widget_selector': '#city_list',
                     'submit_selector': '#city_submit',
                 }
             );
@@ -46,7 +46,7 @@
     input#city_submit:hover {
         background-color: #990000;
     }
-    input#city_submit.available:hover {
+    input#city_submit[disable="false"]:hover {
         background-color: #009900;
         color: white;
     }
@@ -56,7 +56,7 @@
 <div>
     <input id="city_completion" type="text" placeholder="Enter a city name..."/>
     <input id="city_submit" type="submit" value="Submit"/>
-    <ul class="qcomplete-widget"></ul>
+    <ul id="city_list"></ul>
 </div>
 
     
