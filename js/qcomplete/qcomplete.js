@@ -11,6 +11,7 @@ qComplete.prototype = {
     init: function(textfield_selector) {
         // constructor
         _this = this;
+        _this.textfield_selector = textfield_selector;
         _this.$textfield = $(textfield_selector);
         return _this;
     },
@@ -21,8 +22,15 @@ qComplete.prototype = {
         _this.current_data = _this.total_data.slice(0);
 
         // initialize specified widget
-        _this.$widget = $(options.widget_selector);
+        _this.$widget = $('<ul></ul>');
         _this.$submit = $(options.submit_selector);
+
+        // append the widget and adjust the position
+        _this.$widget.insertAfter(_this.textfield_selector);
+        _this.$widget.css({
+            top: _this.$textfield.position().top + _this.$textfield.outerHeight(),
+            left: _this.$textfield.position().left
+        });
 
         // applying styles
         _this.$widget.addClass('qcomplete-widget');
@@ -30,7 +38,6 @@ qComplete.prototype = {
         _this.$textfield.addClass('qcomplete-list');
 
         _this.$submit.attr('disable', true);
-
         _this.$textfield.attr('placeholder', text_placeholder);
 
         // Event bindings
