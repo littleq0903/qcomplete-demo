@@ -1,11 +1,11 @@
-(function(window, $, _){
+(function(window, $, _) {
 // START
 
-var qComplete = function( selector ) {
+var qComplete = function(selector) {
     return new qComplete.prototype.init(selector);
 };
 
-var _this = "";
+var _this = '';
 
 qComplete.prototype = {
     init: function(textfield_selector) {
@@ -14,7 +14,7 @@ qComplete.prototype = {
         _this.$textfield = $(textfield_selector);
         return _this;
     },
-    init_widget: function(options) {
+    initWidget: function(options) {
         // initialize data
         _this.total_data = options.data.slice(0);
         _this.current_data = _this.total_data.slice(0);
@@ -27,7 +27,7 @@ qComplete.prototype = {
         _this.$widget.addClass('qcomplete-widget');
         _this.$submit.addClass('qcomplete-submit');
         _this.$textfield.addClass('qcomplete-list');
-        
+
         // Event bindings
         _this.$textfield.on('keyup', onKeyUp);
         _this.$submit.on('click', onPressSubmit);
@@ -47,6 +47,10 @@ qComplete.prototype = {
             $li.html(item);
             _this.$widget.append($li);
         });
+    },
+    addCandidates: function(new_list) {
+        // add new candidates into the total list
+        _this.total_data = _this.total_data.concat(new_list);
     }
 };
 
@@ -57,7 +61,7 @@ qComplete.prototype = {
 var onKeyUp = function(evt) {
     var text = _this.$textfield.val();
 
-    if (text === "") {
+    if (text === '') {
         _this.$widget.hide();
     } else {
         _this.$widget.show();
@@ -72,8 +76,8 @@ var onKeyUp = function(evt) {
 };
 
 var onPressSubmit = function(evt) {
-    if (! _this.$submit.hasClass("available")) {
-        alert("No!! You can not pass");
+    if (! _this.$submit.hasClass('available')) {
+        alert('No!! You can not pass');
         evt.preventDefault();
     }
 
@@ -84,7 +88,7 @@ var onItemSelected = function(evt) {
     _this.$textfield.val(text);
     checkAvaibility();
     _this.$widget.hide();
-}
+};
 
 
 /*
@@ -94,7 +98,7 @@ var onItemSelected = function(evt) {
 var checkAvaibility = function() {
     // check the input field whether matched one of candidates
     var text = _this.$textfield.val();
-    var complete = _.find(_this.current_data, function(s){ return s == text; });
+    var complete = _.find(_this.current_data, function(s) { return s == text; });
 
     if (complete == undefined) {
         // disable widget
@@ -103,16 +107,16 @@ var checkAvaibility = function() {
         // enable widget
         _this.$submit.attr('disable', false);
     }
-}
+};
 
-var getMatched = function (refer, candidates) {
+var getMatched = function(refer, candidates) {
     // get matched candidates
-    var new_candidates = _.filter(candidates, function(word){
+    var new_candidates = _.filter(candidates, function(word) {
         return word.startsWith(refer);
     });
 
     return new_candidates;
-}
+};
 
 
 // made qComplete return instance but not void

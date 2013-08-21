@@ -9,6 +9,7 @@
     
     <script type="text/javascript" src="js/qcomplete/qcomplete.js"></script>
     <script type="text/javascript" src="data.json"></script>
+    <script type="text/javascript" src="list.js"></script>
     <link rel="stylesheet" href="js/qcomplete/qcomplete.css" />
     <script type="text/javascript">
         $(function(){
@@ -17,13 +18,19 @@
 
             // set up the widget with qComplete
             var city_widget = qComplete("#city_completion")
-            city_widget.init_widget(
+            city_widget.initWidget(
                 {
-                    'data': city_data,
+                    //'data': city_data,
+                    'data': ELIST,
                     'widget_selector': '#city_list',
                     'submit_selector': '#city_submit',
                 }
             );
+            city_widget.addCandidates([
+                'Colin Su',
+                'Greg Weng',
+                'Tim Chien'
+            ]);
                 
         });
     
