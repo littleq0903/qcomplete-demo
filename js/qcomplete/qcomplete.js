@@ -15,6 +15,7 @@ qComplete.prototype = {
         return _this;
     },
     initWidget: function(options) {
+        var text_placeholder = options.placeholder || '';
         // initialize data
         _this.total_data = options.data.slice(0);
         _this.current_data = _this.total_data.slice(0);
@@ -27,6 +28,10 @@ qComplete.prototype = {
         _this.$widget.addClass('qcomplete-widget');
         _this.$submit.addClass('qcomplete-submit');
         _this.$textfield.addClass('qcomplete-list');
+
+        _this.$submit.attr('disable', true);
+
+        _this.$textfield.attr('placeholder', text_placeholder);
 
         // Event bindings
         _this.$textfield.on('keyup', onKeyUp);
@@ -76,7 +81,7 @@ var onKeyUp = function(evt) {
 };
 
 var onPressSubmit = function(evt) {
-    if (! _this.$submit.hasClass('available')) {
+    if (_this.$submit.attr('disable') == 'true') {
         alert('No!! You can not pass');
         evt.preventDefault();
     }
@@ -98,7 +103,9 @@ var onItemSelected = function(evt) {
 var checkAvaibility = function() {
     // check the input field whether matched one of candidates
     var text = _this.$textfield.val();
-    var complete = _.find(_this.current_data, function(s) { return s == text; });
+    var complete = _.find(_this.current_data, function(s) {
+        return s == text;
+    });
 
     if (complete == undefined) {
         // disable widget

@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>QComplete Demo</title>
+
+    <!-- include js libraries -->
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/underscore.js"></script>
     <script type="text/javascript" src="js/jstring.js"></script>
     
+    <!-- include qcomplete js lib and stylesheet -->
     <script type="text/javascript" src="js/qcomplete/qcomplete.js"></script>
+    <link rel="stylesheet" href="js/qcomplete/qcomplete.css" />
+
+    <!-- js data -->
     <script type="text/javascript" src="data.json"></script>
     <script type="text/javascript" src="list.js"></script>
-    <link rel="stylesheet" href="js/qcomplete/qcomplete.css" />
+
     <script type="text/javascript">
         $(function(){
             // deal with data from the json file
@@ -24,6 +30,7 @@
                     'data': ELIST,
                     'widget_selector': '#city_list',
                     'submit_selector': '#city_submit',
+                    'placeholder': 'Enter a word...'
                 }
             );
             city_widget.addCandidates([
@@ -50,6 +57,9 @@
         color: #777777;
         height: 27px;
     }
+    input#city_submit[disable="false"] {
+        color: #000000;
+    }
     input#city_submit:hover {
         background-color: #990000;
     }
@@ -60,12 +70,10 @@
     </style>
 </head>
 <body>
-<div>
-    <input id="city_completion" type="text" placeholder="Enter a city name..."/>
-    <input id="city_submit" type="submit" value="Submit"/>
-    <ul id="city_list"></ul>
-</div>
-
-    
+    <div>
+        <input id="city_completion" type="text"/>
+        <input id="city_submit" type="submit" value="Submit"/>
+        <ul id="city_list"></ul>
+    </div>
 </body>
 </html>
